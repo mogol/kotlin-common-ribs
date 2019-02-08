@@ -6,14 +6,21 @@ import platform.UIKit.removeFromSuperview
 import platform.UIKit.setFrame
 import ribs.RibView
 
-actual class RootView : UIViewController(null, null) {
+actual class RootView : RootViewInput {
+    public val controller = UIViewController(null, null)
     private var currentView: RibView? = null
 
-    actual fun show(newView: RibView) {
+    override fun show(newView: RibView) {
         currentView?.removeFromSuperview()
-        view.addSubview(newView)
+        controller.view.addSubview(newView)
 
-        newView.setFrame(view.bounds)
+        newView.setFrame(controller.view.bounds)
         currentView = newView
     }
 }
+
+actual class RootViewProvider actual constructor(private val dependencies: OSSpecificDependencies) {
+    actual fun getView() = RootView()
+}
+
+actual class OSSpecificDependencies

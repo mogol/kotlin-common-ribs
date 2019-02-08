@@ -7,4 +7,9 @@ open ios/KotlinNative.xcodeproj
 ```
 
 Android:
-TBD
+* Define ANDROID_HOME
+*
+```
+(cd ribs && ./gradlew androidJar)
+```
+* Run the project from android folder

@@ -3,11 +3,12 @@ package sample.root
 import ribs.*
 import sample.login.LoginBuilder
 
-class RootBuilder {
+class RootBuilder(private val dependencies: OSSpecificDependencies) {
+
     fun build(): RootRouter {
-        val router = RootRouter(loginBuilder = LoginBuilder())
+        val router = RootRouter(loginBuilder = LoginBuilder(dependencies))
         val interactor = RootInteractor()
-        val view = RootView()
+        val view = RootViewProvider(dependencies).getView()
 
         router.interactor = interactor
         router.view = view
@@ -48,9 +49,16 @@ class RootInteractor : Interactor(), RootViewOutput {
     }
 }
 
-expect class RootView() {
+expect class RootView: RootViewInput
+
+interface RootViewInput {
     fun show(newView: RibView)
 }
 
 interface RootViewOutput
 
+expect class RootViewProvider(dependencies: OSSpecificDependencies) {
+    fun getView(): RootView
+}
+
+expect class OSSpecificDependencies

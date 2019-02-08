@@ -6,6 +6,7 @@ import platform.CoreGraphics.CGRectZero
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
 import ribs.RibView
+import sample.root.OSSpecificDependencies
 
 actual class ProfileView : RibView(frame = CGRectZero.readValue()) {
     actual var output: ProfileViewOutput? = null
@@ -68,4 +69,8 @@ actual class ProfileView : RibView(frame = CGRectZero.readValue()) {
         output?.userDidPressLogout()
     }
 
+}
+
+actual class ProfileViewProvider actual constructor(dependencies: OSSpecificDependencies) {
+    actual fun getView() = ProfileView()
 }

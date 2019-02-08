@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="com.example.kotlin-native-ribs.androidMain" target="1.6" />
+      <module name="com.example.kotlin-native-ribs.androidTest" target="1.6" />
+      <module name="com.example.kotlin-native-ribs.jvmMain" target="1.6" />
+      <module name="com.example.kotlin-native-ribs.jvmTest" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

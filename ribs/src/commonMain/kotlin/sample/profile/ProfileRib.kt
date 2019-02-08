@@ -4,15 +4,16 @@ import ribs.Interactor
 import ribs.Router
 import ribs.RibView
 import sample.login.AuthorizationListener
+import sample.root.OSSpecificDependencies
 
 
 data class UserProfile(val username: String, val password: String)
 
-class ProfileBuilder {
+class ProfileBuilder(private val dependencies: OSSpecificDependencies) {
     fun build(profile: UserProfile, authorizationListener: AuthorizationListener): ProfileRouter {
         val router = ProfileRouter()
         val interactor = ProfileInteractor(profile, authorizationListener)
-        val view = ProfileView()
+        val view = ProfileViewProvider(dependencies).getView()
 
         router.interactor = interactor
         router.view = view
@@ -57,8 +58,11 @@ interface ProfileViewOutput {
     fun userDidPressLogout()
 }
 
-expect class ProfileView() : RibView {
+expect class ProfileView : RibView {
     var output: ProfileViewOutput?
     fun update(profile: UserProfile)
+}
 
+expect class ProfileViewProvider(dependencies: OSSpecificDependencies) {
+    fun getView(): ProfileView
 }

@@ -8,6 +8,7 @@ import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
 import platform.objc.sel_registerName
 import ribs.RibView
+import sample.root.OSSpecificDependencies
 
 actual class LoginView : RibView(frame = CGRectZero.readValue()) {
     private val username: UITextField
@@ -72,4 +73,8 @@ actual class LoginView : RibView(frame = CGRectZero.readValue()) {
         username.text = ""
         password.text = ""
     }
+}
+
+actual class LoginViewProvider actual constructor(private val dependencies: OSSpecificDependencies) {
+    actual fun getView() = LoginView()
 }

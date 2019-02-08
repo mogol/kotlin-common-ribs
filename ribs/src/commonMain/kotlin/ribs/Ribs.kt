@@ -29,6 +29,6 @@ abstract class Interactor {
     abstract fun deactivate()
 }
 
-expect open class RibView()
+expect open class RibView
 
 typealias RibViewPresenter = (newView: RibView) -> Unit

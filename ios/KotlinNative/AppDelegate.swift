@@ -14,13 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let router = RootBuilder().build()
+    var router: RootRouter?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let dependencies = OSSpecificDependencies()
+        
+        let router = RootBuilder(dependencies: dependencies).build()
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = router.view
+        window?.rootViewController = router.view.controller
         router.activate()
         window?.makeKeyAndVisible()
+        
+        self.router = router
+        
         return true
     }
 }

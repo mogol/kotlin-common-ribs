@@ -4,12 +4,13 @@ import ribs.*
 import sample.profile.ProfileBuilder
 import sample.profile.ProfileRouter
 import sample.profile.UserProfile
+import sample.root.OSSpecificDependencies
 
-class LoginBuilder {
+class LoginBuilder(private val dependencies: OSSpecificDependencies) {
     fun build(viewPresenter: RibViewPresenter): LoginRouter {
-        val router = LoginRouter(profileBuilder = ProfileBuilder(), viewPresenter = viewPresenter)
+        val router = LoginRouter(profileBuilder = ProfileBuilder(dependencies), viewPresenter = viewPresenter)
         val interactor = LoginInteractor()
-        val view = LoginView()
+        val view = LoginViewProvider(dependencies).getView()
 
         router.interactor = interactor
         router.view = view
@@ -69,7 +70,11 @@ interface LoginViewOutput {
     fun userDidPressLogin(username: String, password: String)
 }
 
-expect class LoginView() : RibView {
+expect class LoginView : RibView {
     var output: LoginViewOutput?
     fun clearForm()
+}
+
+expect class LoginViewProvider(dependencies: OSSpecificDependencies) {
+    fun getView(): LoginView
 }
