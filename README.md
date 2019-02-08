@@ -1,4 +1,4 @@
-# (WIP) POC Ribs in Kotlin
+# PoC cross-platform Android/iOS Ribs Architecture in Kotlin 
 
 iOS:
 ```
